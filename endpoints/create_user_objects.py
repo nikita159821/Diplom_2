@@ -3,12 +3,14 @@ import string
 import allure
 import requests
 
-from tests.data import USER, URL, USER_DELETE
+from tests.data import USER, URL, USER_DELETE, CREATE_DUPLICATE_USER, MESSAGE_CHECK_CREATE_DUPLICATE
+
 from endpoints.base_response_checker import ResponseChecker
 
 
 class CreateUser(ResponseChecker):
     def __init__(self):
+        self.user_data = None
         self.payload = None
         self.access_token = None
 
@@ -23,7 +25,12 @@ class CreateUser(ResponseChecker):
     def create_user(self):
         self.payload = self.generate_user_data()
         self.response = requests.post(f'{URL}{USER}', json=self.payload)
+        self.user_data = self.payload
         return self.response
+
+    @allure.step('Создание уже зарегистрированного пользователя')
+    def duplicate_create_user(self):
+        self.response = requests.post(f'{URL}{USER}', json=self.user_data)
 
     @allure.step('Удаление пользователя')
     def delete_user(self):
@@ -41,3 +48,9 @@ class CreateUser(ResponseChecker):
             'name': self.payload['name']
         }
         assert response_body['user'] == expected_user_data
+
+    @allure.step('Проверка статус кода после создания существующего курьера')
+    def check_create_duplicate_user_is_body(self):
+        response_body = self.response.json()
+        assert response_body == MESSAGE_CHECK_CREATE_DUPLICATE
+
