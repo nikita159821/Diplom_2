@@ -3,7 +3,7 @@ import string
 import allure
 import requests
 
-from tests.data import USER, URL, USER_DELETE, CREATE_DUPLICATE_USER, MESSAGE_CHECK_CREATE_DUPLICATE
+from tests.data import USER, URL, USER_DELETE, MESSAGE_CHECK_CREATE_DUPLICATE, MESSAGE_CHECK_CREATE_USER_EMPTY
 
 from endpoints.base_response_checker import ResponseChecker
 
@@ -32,6 +32,10 @@ class CreateUser(ResponseChecker):
     def duplicate_create_user(self):
         self.response = requests.post(f'{URL}{USER}', json=self.user_data)
 
+    @allure.step('создаем пользователя без данных для регистрации')
+    def create_user_empty_payload(self):
+        self.response = requests.post(f'{URL}{USER}')
+
     @allure.step('Удаление пользователя')
     def delete_user(self):
         self.access_token = self.response.json()['accessToken'].split(' ')[1]
@@ -49,8 +53,13 @@ class CreateUser(ResponseChecker):
         }
         assert response_body['user'] == expected_user_data
 
-    @allure.step('Проверка статус кода после создания существующего курьера')
+    @allure.step('Проверка тела ответа после создания существующего курьера')
     def check_create_duplicate_user_is_body(self):
         response_body = self.response.json()
         assert response_body == MESSAGE_CHECK_CREATE_DUPLICATE
+
+    @allure.step('Проверка тело ответа после создания пользователя без данных для регистрации')
+    def check_create_courier_empty_payload(self):
+        response_body = self.response.json()
+        assert response_body == MESSAGE_CHECK_CREATE_USER_EMPTY
 

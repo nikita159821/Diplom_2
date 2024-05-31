@@ -10,3 +10,8 @@ MESSAGE_CHECK_CREATE_DUPLICATE = {
     "success": False,
     "message": "User already exists"
 }
+
+MESSAGE_CHECK_CREATE_USER_EMPTY = {
+    "success": False,
+    "message": "Email, password and name are required fields"
+}
