@@ -1,11 +1,8 @@
-URL = 'https://stellarburgers.nomoreparties.site/api/'
+URL = ' https://stellarburgers.nomoreparties.site/api/'
 USER = 'auth/register'
 USER_DELETE = 'auth/user'
-CREATE_DUPLICATE_USER = {
-    "email": "test-data@yandex.ru",
-    "password": "password",
-    "name": "Username"
-}
+USER_LOGIN = 'auth/login'
+
 MESSAGE_CHECK_CREATE_DUPLICATE = {
     "success": False,
     "message": "User already exists"
@@ -14,4 +11,10 @@ MESSAGE_CHECK_CREATE_DUPLICATE = {
 MESSAGE_CHECK_CREATE_USER_EMPTY = {
     "success": False,
     "message": "Email, password and name are required fields"
+}
+
+TEST = {
+    "success": True,
+    "accessToken": "",
+    "refreshToken": ""
 }

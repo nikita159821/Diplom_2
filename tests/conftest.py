@@ -10,4 +10,3 @@ def create_and_delete_user():
     create_user.create_user()
     yield create_user
     create_user.delete_user()
-

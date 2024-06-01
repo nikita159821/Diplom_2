@@ -62,4 +62,3 @@ class CreateUser(ResponseChecker):
     def check_create_courier_empty_payload(self):
         response_body = self.response.json()
         assert response_body == MESSAGE_CHECK_CREATE_USER_EMPTY
-
