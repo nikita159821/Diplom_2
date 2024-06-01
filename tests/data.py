@@ -18,3 +18,13 @@ TEST = {
     "accessToken": "",
     "refreshToken": ""
 }
+
+LOGIN_AND_PASSWORD_INVALID = {
+    "email": "test",
+    "password": "test"
+}
+
+MESSAGE_LOGIN_AND_PASSWORD_INVALID = {
+    "success": False,
+    "message": "email or password are incorrect"
+}

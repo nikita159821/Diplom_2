@@ -2,7 +2,7 @@ from endpoints.create_user_objects import CreateUser
 import allure
 import requests
 
-from tests.data import URL, USER_LOGIN, TEST
+from tests.data import URL, USER_LOGIN, TEST, LOGIN_AND_PASSWORD_INVALID, MESSAGE_LOGIN_AND_PASSWORD_INVALID
 
 
 class UserLogin(CreateUser):
@@ -14,7 +14,7 @@ class UserLogin(CreateUser):
         self.password = None
         self.access_token = None
 
-    @allure.step('Проходим авторизацию под существующим пользователем')
+    @allure.step('Авторизация под существующим пользователем')
     def users_login(self):
         self.user_data = self.generate_user_data()
         self.response = self.create_user().json()
@@ -41,3 +41,16 @@ class UserLogin(CreateUser):
         assert 'refreshToken' in response_body
         assert response_body['user']['email'] == self.user_data['email']
         assert response_body['user']['name'] == self.user_data['name']
+
+    @allure.step('Авторизация без логина и пароля')
+    def login_with_invalid(self):
+        payload = LOGIN_AND_PASSWORD_INVALID
+        self.response = requests.post(f'{URL}{USER_LOGIN}', json=payload)
+        return self.response.status_code
+
+    @allure.step('Проверка тела ответа без логина и пароля')
+    def check_login_with_invalid_response_body(self):
+        response_body = self.response.json()
+        assert response_body == MESSAGE_LOGIN_AND_PASSWORD_INVALID
+        assert self.response.status_code == 401
+
