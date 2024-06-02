@@ -2,6 +2,7 @@ URL = ' https://stellarburgers.nomoreparties.site/api/'
 USER = 'auth/register'
 USER_DELETE = 'auth/user'
 USER_LOGIN = 'auth/login'
+UPDATE_EMAIL_USER = 'auth/user'
 
 MESSAGE_CHECK_CREATE_DUPLICATE = {
     "success": False,

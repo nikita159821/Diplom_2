@@ -42,13 +42,13 @@ class UserLogin(CreateUser):
         assert response_body['user']['email'] == self.user_data['email']
         assert response_body['user']['name'] == self.user_data['name']
 
-    @allure.step('Авторизация без логина и пароля')
+    @allure.step('Авторизация с неверным логином и паролем')
     def login_with_invalid(self):
         payload = LOGIN_AND_PASSWORD_INVALID
         self.response = requests.post(f'{URL}{USER_LOGIN}', json=payload)
         return self.response.status_code
 
-    @allure.step('Проверка тела ответа без логина и пароля')
+    @allure.step('Проверка тела ответа после авторизации с неверным логином и паролем')
     def check_login_with_invalid_response_body(self):
         response_body = self.response.json()
         assert response_body == MESSAGE_LOGIN_AND_PASSWORD_INVALID

@@ -53,12 +53,12 @@ class CreateUser(ResponseChecker):
         }
         assert response_body['user'] == expected_user_data
 
-    @allure.step('Проверка тела ответа после создания существующего курьера')
+    @allure.step('Проверка тела ответа после создания существующего пользователя')
     def check_create_duplicate_user_is_body(self):
         response_body = self.response.json()
         assert response_body == MESSAGE_CHECK_CREATE_DUPLICATE
 
-    @allure.step('Проверка тело ответа после создания пользователя без данных для регистрации')
+    @allure.step('Проверка тела ответа после создания пользователя без данных для регистрации')
     def check_create_courier_empty_payload(self):
         response_body = self.response.json()
         assert response_body == MESSAGE_CHECK_CREATE_USER_EMPTY
