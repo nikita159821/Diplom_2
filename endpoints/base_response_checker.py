@@ -6,3 +6,6 @@ class ResponseChecker:
 
     def check_response_is_403(self):
         assert self.response.status_code == 403
+
+    def check_response_is_401(self):
+        assert self.response.status_code == 401

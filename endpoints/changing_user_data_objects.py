@@ -2,6 +2,7 @@ import random
 import allure
 import requests
 from endpoints.users_login_objects import UserLogin
+from tests.data import MESSAGE_UNAUTHORIZED
 
 
 class ChangingUser(UserLogin):
@@ -55,3 +56,28 @@ class ChangingUser(UserLogin):
         assert response_body['success'] == True
         assert response_body['user']['email'] == self.user_data['email']
         assert response_body['user']['name'] == self.new_name
+
+    @allure.step('Изменение email пользователя без авторизации')
+    def update_user_email_without_auth(self):
+        # Генерируем новые данные для обновления
+        self.new_email = f"new-test-data-{random.randint(1, 10000)}@yandex.ru"
+
+        # Обновляем email пользователя
+        payload = {'email': self.new_email}
+        self.response = requests.patch('https://stellarburgers.nomoreparties.site/api/auth/user', json=payload)
+        return self.response
+
+    @allure.step('Изменение имени пользователя без авторизации')
+    def update_user_name_without_auth(self):
+        # Генерируем новые данные для обновления
+        self.new_name = f"New-Test-User-{random.randint(1, 10000)}"
+
+        # Обновляем имя пользователя
+        payload = {'name': self.new_name}
+        self.response = requests.patch('https://stellarburgers.nomoreparties.site/api/auth/user', json=payload)
+        return self.response
+
+    @allure.step('Проверка тела ответа, после изменения данных пользователя без авторизации')
+    def check_update_user_without_auth_response_body(self):
+        response_body = self.response.json()
+        assert response_body == MESSAGE_UNAUTHORIZED

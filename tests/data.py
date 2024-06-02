@@ -29,3 +29,8 @@ MESSAGE_LOGIN_AND_PASSWORD_INVALID = {
     "success": False,
     "message": "email or password are incorrect"
 }
+
+MESSAGE_UNAUTHORIZED = {
+    "success": False,
+    "message": "You should be authorised"
+}
