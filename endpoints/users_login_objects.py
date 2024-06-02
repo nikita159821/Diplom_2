@@ -46,7 +46,6 @@ class UserLogin(CreateUser):
     def login_with_invalid(self):
         payload = LOGIN_AND_PASSWORD_INVALID
         self.response = requests.post(f'{URL}{USER_LOGIN}', json=payload)
-        return self.response.status_code
 
     @allure.step('Проверка тела ответа после авторизации с неверным логином и паролем')
     def check_login_with_invalid_response_body(self):

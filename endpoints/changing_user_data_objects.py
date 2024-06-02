@@ -25,7 +25,6 @@ class ChangingUser(UserLogin):
         payload = {'email': self.new_email}
         self.response = requests.patch('https://stellarburgers.nomoreparties.site/api/auth/user', headers=headers,
                                        json=payload)
-        return self.response
 
     @allure.step('Проверка тела ответа, после изменения email пользователя. С авторизацией')
     def check_update_user_email_with_auth_response_body(self):
@@ -48,7 +47,6 @@ class ChangingUser(UserLogin):
         payload = {'name': self.new_name}
         self.response = requests.patch('https://stellarburgers.nomoreparties.site/api/auth/user', headers=headers,
                                        json=payload)
-        return self.response
 
     @allure.step('Проверка тела ответа, после изменения имени пользователя. С авторизацией')
     def check_update_user_name_with_auth_response_body(self):
@@ -65,7 +63,6 @@ class ChangingUser(UserLogin):
         # Обновляем email пользователя
         payload = {'email': self.new_email}
         self.response = requests.patch('https://stellarburgers.nomoreparties.site/api/auth/user', json=payload)
-        return self.response
 
     @allure.step('Изменение имени пользователя без авторизации')
     def update_user_name_without_auth(self):
@@ -75,7 +72,6 @@ class ChangingUser(UserLogin):
         # Обновляем имя пользователя
         payload = {'name': self.new_name}
         self.response = requests.patch('https://stellarburgers.nomoreparties.site/api/auth/user', json=payload)
-        return self.response
 
     @allure.step('Проверка тела ответа, после изменения данных пользователя без авторизации')
     def check_update_user_without_auth_response_body(self):

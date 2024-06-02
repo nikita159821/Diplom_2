@@ -3,6 +3,8 @@ USER = 'auth/register'
 USER_DELETE = 'auth/user'
 USER_LOGIN = 'auth/login'
 UPDATE_EMAIL_USER = 'auth/user'
+ORDER = 'orders'
+INGREDIENTS = 'ingredients'
 
 MESSAGE_CHECK_CREATE_DUPLICATE = {
     "success": False,
@@ -33,4 +35,13 @@ MESSAGE_LOGIN_AND_PASSWORD_INVALID = {
 MESSAGE_UNAUTHORIZED = {
     "success": False,
     "message": "You should be authorised"
+}
+
+MESSAGE_MISSING_INGREDIENT_IDS = {
+    "success": False,
+    "message": "Ingredient ids must be provided"
+}
+
+HASH = {
+    "ingredients": ["1", "2"]
 }
