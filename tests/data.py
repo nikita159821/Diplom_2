@@ -16,11 +16,6 @@ MESSAGE_CHECK_CREATE_USER_EMPTY = {
     "message": "Email, password and name are required fields"
 }
 
-TEST = {
-    "success": True,
-    "accessToken": "",
-    "refreshToken": ""
-}
 
 LOGIN_AND_PASSWORD_INVALID = {
     "email": "test",

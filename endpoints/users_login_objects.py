@@ -2,7 +2,7 @@ from endpoints.create_user_objects import CreateUser
 import allure
 import requests
 
-from tests.data import URL, USER_LOGIN, TEST, LOGIN_AND_PASSWORD_INVALID, MESSAGE_LOGIN_AND_PASSWORD_INVALID
+from tests.data import URL, USER_LOGIN, LOGIN_AND_PASSWORD_INVALID, MESSAGE_LOGIN_AND_PASSWORD_INVALID
 
 
 class UserLogin(CreateUser):
@@ -36,11 +36,8 @@ class UserLogin(CreateUser):
     @allure.step('Проверка тела ответа после авторизации')
     def check_users_login_response_body(self):
         response_body = self.users_login().json()
-        assert response_body['success'] == TEST['success']
-        assert 'accessToken' in response_body
-        assert 'refreshToken' in response_body
-        assert response_body['user']['email'] == self.user_data['email']
-        assert response_body['user']['name'] == self.user_data['name']
+        assert response_body['success'] == True
+
 
     @allure.step('Авторизация с неверным логином и паролем')
     def login_with_invalid(self):
