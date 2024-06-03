@@ -3,7 +3,8 @@ import string
 import allure
 import requests
 
-from tests.data import USER, URL, USER_DELETE, MESSAGE_CHECK_CREATE_DUPLICATE, MESSAGE_CHECK_CREATE_USER_EMPTY
+from tests.data import USER, URL, USER_DELETE, MESSAGE_CHECK_CREATE_DUPLICATE, MESSAGE_CHECK_CREATE_USER_EMPTY, \
+    DUPLICATE_USER
 
 from endpoints.base_response_checker import ResponseChecker
 
@@ -30,7 +31,8 @@ class CreateUser(ResponseChecker):
 
     @allure.step('Создание уже зарегистрированного пользователя')
     def duplicate_create_user(self):
-        self.response = requests.post(f'{URL}{USER}', json=self.user_data)
+        payload = DUPLICATE_USER
+        self.response = requests.post(f'{URL}{USER}', json=payload)
 
     @allure.step('создаем пользователя без данных для регистрации')
     def create_user_empty_payload(self):

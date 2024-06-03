@@ -3,27 +3,24 @@ import requests
 from endpoints.users_login_objects import UserLogin
 from tests.data import URL, INGREDIENTS, ORDER, MESSAGE_MISSING_INGREDIENT_IDS, HASH
 
-
 class CreatingOrder(UserLogin):
-
-    def __init__(self):
+    def __init__(self, create_and_delete_user=None):
         super().__init__()
+        self.create_and_delete_user = create_and_delete_user
+        if create_and_delete_user:
+            self.users_login(self.create_and_delete_user)
+            self.access_token = self.response.json()['accessToken'].split(' ')[1]
         self.ingredient_ids = None
 
     @allure.step('Получение хеша ингредиентов')
     def get_ingredients(self):
         self.response = requests.get(f'{URL}{INGREDIENTS}')
         ingredients_data = self.response.json()['data']
-        ingredient_ids = []
-        for item in ingredients_data:
-            ingredient_ids.append(item['_id'])
-        return ingredient_ids
+        self.ingredient_ids = [item['_id'] for item in ingredients_data]
+        return self.ingredient_ids
 
     @allure.step('Создание заказа с авторизацией')
     def create_order_with_auth(self):
-        # Авторизуемся под существующим пользователем
-        response = self.users_login()
-        self.access_token = response.json()['accessToken'].split(' ')[1]
         self.ingredient_ids = self.get_ingredients()
 
         # Формируем payload с указанным количеством ингредиентов
@@ -49,9 +46,6 @@ class CreatingOrder(UserLogin):
 
     @allure.step('Создание заказа без ингредиентов')
     def create_order_without_ingredients(self):
-        # Авторизуемся под существующим пользователем
-        response = self.users_login()
-        self.access_token = response.json()['accessToken'].split(' ')[1]
         headers = {'Authorization': f'Bearer {self.access_token}'}
         self.response = requests.post(f'{URL}{ORDER}', headers=headers)
 

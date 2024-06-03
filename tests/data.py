@@ -16,7 +16,6 @@ MESSAGE_CHECK_CREATE_USER_EMPTY = {
     "message": "Email, password and name are required fields"
 }
 
-
 LOGIN_AND_PASSWORD_INVALID = {
     "email": "test",
     "password": "test"
@@ -39,4 +38,10 @@ MESSAGE_MISSING_INGREDIENT_IDS = {
 
 HASH = {
     "ingredients": ["1", "2"]
+}
+
+DUPLICATE_USER = {
+    "email": "test-data@yandex.ru",
+    "password": "password",
+    "name": "Username"
 }

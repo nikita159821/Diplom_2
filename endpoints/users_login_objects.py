@@ -15,12 +15,11 @@ class UserLogin(CreateUser):
         self.access_token = None
 
     @allure.step('Авторизация под существующим пользователем')
-    def users_login(self):
-        self.user_data = self.generate_user_data()
-        self.response = self.create_user().json()
-        self.email = self.response['user']['email']
-        self.password = self.user_data['password']
-        self.access_token = self.response['accessToken'].split(' ')[1]
+    def users_login(self, create_and_delete_user):
+        self.response = create_and_delete_user.response
+        self.email = self.response.json()['user']['email']
+        self.password = create_and_delete_user.user_data['password']
+        self.access_token = self.response.json()['accessToken'].split(' ')
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {self.access_token}"
@@ -34,10 +33,9 @@ class UserLogin(CreateUser):
         return self.response
 
     @allure.step('Проверка тела ответа после авторизации')
-    def check_users_login_response_body(self):
-        response_body = self.users_login().json()
+    def check_users_login_response_body(self, create_and_delete_user):
+        response_body = create_and_delete_user.response.json()
         assert response_body['success'] == True
-
 
     @allure.step('Авторизация с неверным логином и паролем')
     def login_with_invalid(self):
@@ -49,4 +47,3 @@ class UserLogin(CreateUser):
         response_body = self.response.json()
         assert response_body == MESSAGE_LOGIN_AND_PASSWORD_INVALID
         assert self.response.status_code == 401
-
