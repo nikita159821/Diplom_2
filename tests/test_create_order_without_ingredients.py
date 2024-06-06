@@ -4,7 +4,7 @@ from endpoints.сreating_order_objects import CreatingOrder
 
 class TestCreateOrderWithoutIngredients:
 
-    @allure.step('Создание заказа без ингредиентов')
+    @allure.title('Создание заказа без ингредиентов')
     def test_create_order_without_ingredients(self, user_auth_data):
         creating_order = CreatingOrder()
         response = creating_order.create_order_without_ingredients(user_auth_data)

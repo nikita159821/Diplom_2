@@ -1,8 +1,11 @@
+import allure
+
 from endpoints.create_user_objects import CreateUser
 
 
 class TestCreateUserDuplicate:
 
+    @allure.title('Создание пользователя, который уже зарегистрирован')
     def test_create_user_duplicate(self):
         create_user_duplicate = CreateUser()
         response = create_user_duplicate.create_user_duplicate()

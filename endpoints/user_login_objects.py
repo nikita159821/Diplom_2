@@ -26,9 +26,7 @@ class UserLogin:
         self.response = requests.post(URL + USER_LOGIN, json=payload)
         return self.response
 
-
     @allure.step('Проверка тела ответа после авторизации с неверным логином и паролем')
     def check_response_body_authorization_invalid_username_and_password(self):
         response_body = self.response.json()
         assert response_body == MESSAGE_LOGIN_AND_PASSWORD_INVALID
-

@@ -1,8 +1,11 @@
+import allure
+
 from endpoints.user_login_objects import UserLogin
 
 
 class TestAuthorizationInvalidUsernamePassword:
 
+    @allure.title('Авторизация с неверным логином и паролем')
     def test_authorization_invalid_username_and_password(self):
         authorization_invalid_username_and_password = UserLogin()
         response = authorization_invalid_username_and_password.authorization_invalid_username_and_password()
