@@ -1,8 +1,10 @@
+import random
+
 URL = ' https://stellarburgers.nomoreparties.site/api/'
 USER = 'auth/register'
 USER_DELETE = 'auth/user'
 USER_LOGIN = 'auth/login'
-UPDATE_EMAIL_USER = 'auth/user'
+UPDATE_USER = 'auth/user'
 ORDER = 'orders'
 INGREDIENTS = 'ingredients'
 
@@ -45,3 +47,12 @@ DUPLICATE_USER = {
     "password": "password",
     "name": "Username"
 }
+
+USER_WITHOUT_EMAIL = {
+    "email": "",
+    "password": "password",
+    "name": "Username"
+}
+
+NEW_EMAIL = f"new-test-data-{random.randint(1, 10000)}@yandex.ru"
+NEW_NAME = f"New-Test-User-{random.randint(1, 10000)}"
